@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asking Her Out</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Geneva', sans-serif;
+            background: linear-gradient(135deg, rgba(255,107,107,0.8), rgba(78,205,196,0.8));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 100%;
+            word-wrap: break-word;
+            white-space: normal;
+            margin-bottom: 20px;
+        }
+
+        .polaroids {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .polaroid {
+            width: calc(33.333% - 10px);
+            max-width: 200px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.1) rotate(-3deg);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .button {
+            background-color: #FF6B6B;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+            background-color: #4ECDC4;
+        }
+
+        #noButton:hover {
+            animation: shake 0.5s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            25% { transform: translate(-1px, -2px) rotate(-1deg); }
+            50% { transform: translate(-3px, 0px) rotate(1deg); }
+            75% { transform: translate(3px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -1px) rotate(-1deg); }
+        }
+
+        .gif {
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .gif h2 {
+            color: white;
+            margin-top: 10px;
+        }
+
+        .tenor-gif-embed {
+            width: 100% !important;
+            max-height: 300px;
+        }
+
+        .bike {
+            position: fixed;
+            bottom: 10%;
+            left: -100px; /* Start off-screen */
+            z-index: 10;
+            transition: all 1s ease;
+        }
+
+        .bike.animate {
+            animation: bikeCrossScreen 5s linear forwards;
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1.5rem;
+            animation: snow 5s linear infinite;
+            z-index: 5;
+        }
+
+        .partyPopper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            z-index: 15;
+            animation: pop 2s forwards;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+
+            .polaroids {
+                gap: 5px;
+            }
+
+            .polaroid {
+                width: calc(50% - 5px);
+                max-width: 150px;
+                padding: 5px;
+            }
+
+            .button {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+                margin: 5px;
+            }
+
+            .snowflake {
+                font-size: 1rem;
+            }
+
+            .partyPopper {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .polaroid {
+                width: 100%;
+                max-width: none;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .button {
+                width: 80%;
+            }
+        }
+
+        /* Typing and caret animations */
+        @keyframes typing {
+            from { clip-path: inset(0 100% 0 0); }
+            to { clip-path: inset(0 0 0 0); }
+        }
+
+        @keyframes blinkCaret {
+            50% { border-color: transparent; }
+        }
+
+        @keyframes bikeCrossScreen {
+            0% {
+                left: -100px;
+                transform: translateY(0) rotate(0deg) scaleX(1);
+            }
+            25% {
+                transform: translateY(-20px) rotate(-10deg) scaleX(1.1);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg) scaleX(1);
+            }
+            75% {
+                transform: translateY(20px) rotate(10deg) scaleX(1.1);
+            }
+            100% {
+                left: calc(100% + 100px);
+                transform: translateY(0) rotate(0deg) scaleX(1);
+            }
+        }
+        @media (max-width: 768px) {
+            .bike {
+                max-width: 80px;
+            }
+
+            @keyframes bikeCrossScreen {
+                0% {
+                    left: -80px;
+                    transform: translateY(0) rotate(0deg) scaleX(1);
+                }
+                25% {
+                    transform: translateY(-15px) rotate(-10deg) scaleX(1.1);
+                }
+                50% {
+                    transform: translateY(0) rotate(0deg) scaleX(1);
+                }
+                75% {
+                    transform: translateY(15px) rotate(10deg) scaleX(1.1);
+                }
+                100% {
+                    left: calc(100% + 80px);
+                    transform: translateY(0) rotate(0deg) scaleX(1);
+                }
+            }
+        }
+
+        @keyframes snow {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+            }
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="question">Would you be up for Rameshwaram Cafe this evening?</h1>
+    <div class="polaroids">
+        <div class="polaroid">
+            <img src="images/cafe9.jpg" alt="Encourage">
+            <img src="images/cafe8.jpg" alt="Encourage">
+            <img src="images/cafelogo.png" alt="Encourage">
+        </div>
+
+        <div class="polaroid">
+            <img src="images/cafe11.jpg" alt="Eating">
+            <img src="images/cafe14.jpg" alt="Eating">
+            <img src="images/dbc.jpg" alt="Shocks">
+        </div>
+
+        <div class="polaroid">
+            <img src="images/corner2.jpg" alt="Shocks">
+            <img src="images/corner3.png" alt="Shocks">
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button class="button" id="yesButton">Yes 💖</button>
+        <button class="button" id="noButton">No 🙅‍♂️</button>
+    </div>
+
+    <div id="yesGif" class="gif">
+        <div class="tenor-gif-embed" data-postid="21434560" data-share-method="host" data-aspect-ratio="1.07383" data-width="100%"><a href="https://tenor.com/view/tom-whistle-tom-tom-clap-gif-21434560">Tom Whistle Tom GIF</a>from <a href="https://tenor.com/search/tom+whistle-gifs">Tom Whistle GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        <h2>Let's Go! 🎉</h2>
+    </div>
+
+    <div id="noGif" class="gif">
+        <div class="tenor-gif-embed" data-postid="26055272" data-share-method="host" data-aspect-ratio="1.33333" data-width="100%"><a href="https://tenor.com/view/tom-and-jerry-facepalm-gif-26055272">Tom And Jerry Facepalm GIF</a>from <a href="https://tenor.com/search/tom+and+jerry-gifs">Tom And Jerry GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        <br>
+        <button class="button" id="yesButton2">You can change your mind by clicking here!</button>
+    </div>
+
+    <div class="bike" id="bike">
+        <img src="images/int.png" alt="Bike" width="100">
+    </div>
+
+    <script>
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const yesGif = document.getElementById('yesGif');
+        const noGif = document.getElementById('noGif');
+        const bike = document.getElementById('bike');
+        const yesButton2 = document.getElementById('yesButton2');
+
+        // Snowflake generation function
+        function createSnowflakes() {
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.textContent = '❄️';
+                snowflake.classList.add('snowflake');
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                document.body.appendChild(snowflake);
+            }
+        }
+
+        // Party popper effect
+        function createPartyPopper() {
+            const partyPopper = document.createElement('div');
+            partyPopper.textContent = '🎉';
+            partyPopper.classList.add('partyPopper');
+            document.body.appendChild(partyPopper);
+            setTimeout(() => {
+                partyPopper.remove();
+            }, 2000);
+        }
+
+        // Enhanced bike animation function
+        function animateBike() {
+            bike.classList.add('animate');
+            setTimeout(() => {
+                bike.classList.remove('animate');
+                bike.style.left = '-100px'; // Reset position
+            }, 5000);
+        }
+
+        function scrollToBottom() {
+            const scrollHeight = Math.max(
+                document.documentElement.scrollHeight, 
+                document.body.scrollHeight
+            );
+            
+            window.scrollTo({
+                top: scrollHeight,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+    
+        // Rejection phrases
+        const rejectionPhrases = [
+            "Are you sure? ",
+            "Just one magical Food date? 💕",
+            "Think about it! 🍝",
+            "Maybe next time? ",
+            "I promise it'll be fun! 🍽️"
+        ];
+
+        let currentPhraseIndex = 0;
+
+        // Change rejection phrase when mouse hovers over the "No" button
+        noButton.addEventListener('mouseover', () => {
+            noButton.textContent = rejectionPhrases[currentPhraseIndex];
+            currentPhraseIndex = (currentPhraseIndex + 1) % rejectionPhrases.length;
+        });
+
+        noButton.addEventListener('mouseout', () => {
+            noButton.textContent = 'No 🙅‍♂️';
+        });
+
+        // Modified click event handlers to use animateBike
+        yesButton.addEventListener('click', () => {
+            yesGif.style.display = 'block';
+            noGif.style.display = 'none';
+            bike.style.display = 'block';
+            animateBike();
+            setTimeout(() => {
+                bike.style.display = 'none';
+            }, 5000);
+            createSnowflakes();
+            createPartyPopper();
+            setTimeout(scrollToBottom, 100);
+        });
+
+        yesButton2.addEventListener('click', () => {
+            yesGif.style.display = 'block';
+            noGif.style.display = 'none';
+            bike.style.display = 'block';
+            animateBike();
+            setTimeout(() => {
+                bike.style.display = 'none';
+            }, 5000);
+            createSnowflakes();
+            createPartyPopper();
+            setTimeout(scrollToBottom, 100);
+        });
+        
+        noButton.addEventListener('click', () => {
+            noGif.style.display = 'block';
+            yesGif.style.display = 'none';
+            setTimeout(scrollToBottom, 100);
+        });
+    </script>
+</body>
+</html>
