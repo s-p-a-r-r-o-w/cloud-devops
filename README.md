@@ -32,8 +32,8 @@ Before starting, make sure you have the following installed and configured:
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone <repository-url>
-   cd <repository-name>
+   git clone https://github.com/s-p-a-r-r-o-w/cloud-devops.git
+   cd cloud-devops
    ```
 
 2. Navigate to the `web-app/` directory where the Dockerfile is located:
